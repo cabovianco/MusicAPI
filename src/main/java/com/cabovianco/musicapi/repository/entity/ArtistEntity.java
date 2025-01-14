@@ -3,10 +3,13 @@ package com.cabovianco.musicapi.repository.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "songs")
-public class SongEntity {
+@Table(name = "artists")
+public class ArtistEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +17,7 @@ public class SongEntity {
 
     private String name;
 
-    private Double timeInMinutes;
-
-    @ManyToOne
-    @JoinColumn(name = "artist_id")
-    private ArtistEntity artist;
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private List<SongEntity> songs = new ArrayList<>();
 
 }
